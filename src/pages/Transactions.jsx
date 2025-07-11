@@ -1,45 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
-import { FaShoppingCart, FaBolt, FaMoneyBillWave, FaHome, FaPlane } from "react-icons/fa";
+import { FaShoppingCart, FaBolt, FaMoneyBillWave, FaHome, FaPlane, FaQuestion } from "react-icons/fa";
+import apiRoutes from "../routes/apiRoutes";
+
+const iconMap = {
+  Groceries: FaShoppingCart,
+  Utilities: FaBolt,
+  Salary: FaMoneyBillWave,
+  Rent: FaHome,
+  Travel: FaPlane,
+};
+
 
 const Transactions = () => {
   const familyUsers = ["John", "Emma", "Sophia", "Michael"]; 
   const [type, setType] = useState("expense");
+  const [categories, setCategories] = useState([]);
+  const [categoryAmounts, setCategoryAmounts] = useState({});
 
-  const categories = [
-    {
-      name: "Groceries",
-      icon: <FaShoppingCart size={24} className="text-green-600" />,
-      type: "expense"
-    },
-    {
-      name: "Utilities",
-      icon: <FaBolt size={24} className="text-yellow-600" />,
-      type: "expense"
-    },
-    {
-      name: "Salary",
-      icon: <FaMoneyBillWave size={24} className="text-blue-600" />,
-      type: "income"
-    },
-    {
-      name: "Rent",
-      icon: <FaHome size={24} className="text-purple-600" />,
-      type: "expense"
-    },
-    {
-      name: "Travel",
-      icon: <FaPlane size={24} className="text-orange-600" />,
-      type: "expense"
-    }
-  ];
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(apiRoutes.categories);
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
 
+    };
+    fetchCategories();
+  }, []);
+
+  const handlecategoryChange = (e, categoryName) => {
+    const value = e.target.value;
+    setCategoryAmounts((prev) => ({
+      ...prev,
+      [categoryName]: value,
+    }));
+  }
 
   const [form, setForm] = useState({
     username: "",
-    amount: "",
     type: "",
-    category: "",
     date: "",
     description: "",
     file: null,
@@ -58,9 +61,32 @@ const Transactions = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", form);
+
+    const totalAmount = Object.values(categoryAmounts).reduce((acc, val) => acc + Number(val), 0);
+
+    const formData = new FormData();
+    formData.append("username", form.username);
+    formData.append("type", form.type);
+    formData.append("date", form.date);
+    formData.append("description", form.description);
+    formData.append("amount", totalAmount);
+    formData.append("categories", JSON.stringify(categoryAmounts));
+    console.log("URL", apiRoutes.addTransaction);
+
+    try {
+      const response = await fetch(apiRoutes.addTransaction, {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log(response);
+
+    } catch (error) {
+      console.error("Error submitting transaction:", error);
+    }
+
   };
 
   return (
@@ -122,34 +148,44 @@ const Transactions = () => {
 
                   </div>
 
-                  <h2 className="text-xl font-semibold mb-4 text-teal-800">Expenses</h2>
+                  <h2 className="text-xl font-semibold mb-4 text-teal-800">
+                  {type && (
+                    type === "expense" ? "Expenses" : "Income"
+                  )}
+                  </h2>
                   {type && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                       {categories
                         .filter((cat) => cat.type === type)
-                        .map((cat) => (
-                          <div
-                            key={cat.name}
-                            className="card border border-gray-200 bg-white p-4 rounded-2xl shadow hover:shadow-md transition"
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="bg-gray-100 p-2 rounded-xl">{cat.icon}</div>
-                              <div>
-                                <h3 className="text-sm font-medium text-gray-700">{cat.name}</h3>
-                                <p className="text-xs text-gray-400">
-                                  <input
-                                    type="number"
-                                    name="amount"
-                                    value={form.amount}
-                                    onChange={handleChange}
-                                    className="w-full p-2 border rounded-xl"
-                                    required
-                                  />
-                                </p>
+                        .map((cat) => {
+                          const Icon = iconMap[cat.name] || FaQuestion;
+
+                          return (
+                            <div
+                              key={cat.name}
+                              className="card border border-gray-200 bg-white p-4 rounded-2xl shadow hover:shadow-md transition"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className={'bg-gray-100 p-2 rounded-xl'}>
+                                  <Icon size={24} className={cat.colorClass} />
+                                </div>
+                                <div>
+                                  <h3 className="text-sm font-medium text-gray-700">{cat.name}</h3>
+                                  <p className="text-xs text-gray-600">
+                                    <input
+                                      type="number"
+                                      name={`amount-${cat.name}`}
+                                      value={categoryAmounts[cat.name] || ""}
+                                      onChange={(e) => handlecategoryChange(e, cat.name)}
+                                      className="w-full p-2 border rounded-xl"
+                                      required
+                                    />
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                     </div>
                   )}
 
@@ -162,8 +198,7 @@ const Transactions = () => {
                         <input
                           type="number"
                           name="amount"
-                          value={form.amount}
-                          onChange={handleChange}
+                          value={Object.values(categoryAmounts).reduce((acc, val) => acc + Number(val), 0)}
                           className="w-full p-2 border rounded-xl"
                           required
                         />
