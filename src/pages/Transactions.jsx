@@ -73,8 +73,7 @@ const Transactions = () => {
     formData.append("description", form.description);
     formData.append("amount", totalAmount);
     formData.append("categories", JSON.stringify(categoryAmounts));
-    console.log("URL", apiRoutes.addTransaction);
-
+    
     try {
       const response = await fetch(apiRoutes.addTransaction, {
         method: "POST",
