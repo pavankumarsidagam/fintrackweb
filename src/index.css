@@ -32,3 +32,47 @@
   animation: slideDown 0.3s ease-in forwards;
 }
 
+
+@font-face {
+    font-family: 'AkiraExpanded';
+    src: url('../public/fonts/AkiraExpandedDemo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'AppleGaramond';
+    src: url('../public/fonts/AppleGaramond-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.AkiraExpanded{
+    font-family: 'AkiraExpanded';
+}
+.AppleGaramond{
+    font-family: 'AppleGaramond';
+}
+
+.head {
+    font-family: "Syne", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.subhead {
+    font-family: "Syne", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.inputext{
+    font-family: "Roboto", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+input:focus {
+  outline: none; 
+}

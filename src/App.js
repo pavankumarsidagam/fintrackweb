@@ -1,19 +1,28 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar'; 
-import Dashboard from './pages/Dashboard';
-import Transactions from './pages/Transactions';  
+import Protection from './components/Protection';
+
+import Dashboard from './pages/Menus/Dashboard';
+import Transactions from './pages/Menus/Transactions';  
+
+import Login from "./pages/Authentication/Login";
+import ForgotPassword from './pages/Authentication/ForgotPassword';
+import VerifyOTP from './pages/Authentication/VerifyOTP';
+import ChangePassword from './pages/Authentication/ChangePassword';
 
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-black-50 text-gray-800">
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/transactions' element={<Transactions />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/forgot-password' element={<ForgotPassword />}/>
+        <Route path='/verify-otp' element={<VerifyOTP />}/>
+        <Route path='/change-password' element={<ChangePassword />} />
+
+        <Route path='/' element={<Protection><Dashboard /></Protection>}/>
+        <Route path='/transactions' element={<Protection><Transactions /></Protection>}/>
+      </Routes>
+        
     </Router>
   );
 }

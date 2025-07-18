@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FiUser,
   FiMenu,
@@ -25,6 +25,12 @@ const Navbar = () => {
   const accountRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -114,12 +120,12 @@ const Navbar = () => {
                 >
                   <FiUser /> Profile
                 </Link>
-                <Link
-                  to="/logout"
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition"
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition w-full text-left"
                 >
                   <FiLogOut /> Logout
-                </Link>
+                </button>
               </div>
             </div>
           </div>
