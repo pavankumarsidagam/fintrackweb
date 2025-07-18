@@ -18,10 +18,18 @@ const Transactions = () => {
   const [categories, setCategories] = useState([]);
   const [categoryAmounts, setCategoryAmounts] = useState({});
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch(apiRoutes.categories);
+        const res = await fetch(apiRoutes.categories, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+            },
+        });
+         
         const data = await res.json();
         setCategories(data);
       } catch (error) {
