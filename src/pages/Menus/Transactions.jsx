@@ -38,7 +38,7 @@ const Transactions = () => {
 
     };
     fetchCategories();
-  }, []);
+  }, [token]);
 
   const handlecategoryChange = (e, categoryName) => {
     const value = e.target.value;
