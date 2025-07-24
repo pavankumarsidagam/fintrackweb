@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { FaShoppingCart, FaBolt, FaMoneyBillWave, FaHome, FaPlane, FaQuestion } from "react-icons/fa";
 import apiRoutes from "../../routes/Menus/apiRoutes";
+import axiosInstance from "../../api/axiosInstance";
 
 const iconMap = {
   Groceries: FaShoppingCart,
@@ -18,27 +19,31 @@ const Transactions = () => {
   const [categories, setCategories] = useState([]);
   const [categoryAmounts, setCategoryAmounts] = useState({});
 
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
-        const res = await fetch(apiRoutes.categories, {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`,
-            },
-        });
+      // try {
+      //   const res = await fetch(apiRoutes.categories, {
+      //       method: "GET",
+      //       headers: {
+      //         "Authorization": `Bearer ${token}`,
+      //       },
+      //   });
          
-        const data = await res.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+      //   const data = await res.json();
+      //   setCategories(data);
+      // } catch (error) {
+      //   console.error("Error fetching categories:", error);
+      // }
+      axiosInstance.get(apiRoutes.categories)
+      .then((res) => setCategories(res.data))
+      .catch((err) => console.log(err));
+
 
     };
     fetchCategories();
-  }, [token]);
+  }, []);
 
   const handlecategoryChange = (e, categoryName) => {
     const value = e.target.value;
@@ -83,10 +88,7 @@ const Transactions = () => {
     formData.append("categories", JSON.stringify(categoryAmounts));
     
     try {
-      const response = await fetch(apiRoutes.addTransaction, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await axiosInstance.post(apiRoutes.addTransaction, formData);
 
       console.log(response);
 
@@ -182,7 +184,7 @@ const Transactions = () => {
                                     <input
                                       type="number"
                                       name={`amount-${cat.name}`}
-                                      value={categoryAmounts[cat.name] || ""}
+                                      value={categoryAmounts[cat.name] || "0"}
                                       onChange={(e) => handlecategoryChange(e, cat.name)}
                                       className="w-full p-2 border rounded-xl"
                                       required
