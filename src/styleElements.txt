@@ -1,0 +1,24 @@
+<div class="mx-auto w-full max-w-xs">
+    <label for="location" class="block text-sm font-medium text-gray-900">Location</label>
+    <div class="mt-2 grid grid-cols-1">
+        <select id="location" name="location" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300">
+            <option>United States</option>
+            <option selected="">Canada</option>
+            <option>Mexico</option>
+        </select>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon" class="pointer-events-none col-start-1 row-start-1 mr-2 self-center justify-self-end text-gray-600 w-4 h-4">
+            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+        </svg>
+    </div>
+</div>
+
+// Select Tag Custom 
+
+// custom Input tag 
+
+<div>
+    <label for="email" class="block text-sm font-medium text-white">Email</label>
+    <div class="mt-2">
+        <input id="email" name="email" type="email" placeholder="you@example.com" class="block w-full rounded-md border-0 bg-white py-1.5 px-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300 sm:text-sm sm:leading-6" />
+    </div>
+</div>

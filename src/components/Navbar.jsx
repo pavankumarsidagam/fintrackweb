@@ -13,8 +13,8 @@ import { BsPiggyBank } from "react-icons/bs";
 const menuItems = [
   { name: "Dashboard", to: "/", icon: <FiHome /> },
   { name: "Transactions", to: "/transactions", icon: <FiList /> },
+  { name: "Members", to: "/users", icon: <FiUser /> },
   { name: "Reports", to: "/reports", icon: <FiDollarSign /> },
-  { name: "Profile", to: "/profile", icon: <FiUser /> },
 ];
 
 const Navbar = () => {
@@ -78,13 +78,13 @@ const Navbar = () => {
         z-50 transition-all duration-300">
 
         {/* Logo */}
-        <div className="flex items-center space-x-2 text-2xl font-bold font-poppins">
+        <div className="flex head items-center space-x-2 text-2xl font-bold font-poppins">
           <BsPiggyBank className="text-2xl text-white" />
           <span>FINTRACK</span>
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8 text-base items-center font-inter">
+        <div className="subhead hidden md:flex space-x-8 items-center">
           {menuItems.map((item) => (
             <Link
               key={item.to}
