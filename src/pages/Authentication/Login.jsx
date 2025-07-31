@@ -17,6 +17,13 @@ const LoginPage = () => {
       withCredentials: true
     }).catch((err) => {
       console.error('Logout failed:', err);
+      if (err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
+        setError('Backend server is not running. Please try again later.');
+      } else if (err.response) {
+        setError(err.response.data.message || 'An unknown error occurred.');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     });
 
   }, []);
@@ -36,6 +43,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [error, setError]= useState('');
   const [loader, setLoader] = useState(false);
 
   const handleLogin = async (e) => {
@@ -58,7 +66,7 @@ const LoginPage = () => {
 
     // console.log(email, password);
 
-
+    setError('');
     try{
       const response = await loginUser({email, password});
 
@@ -73,8 +81,15 @@ const LoginPage = () => {
         console.log(response);
       }
 
-    } catch (error){
-      console.log(error);
+    } catch (err){
+      console.log(err);
+      if (err.message === 'Network Error' || err.code === 'ERR_NETWORK') {
+        setError('Backend server is not running. Please try again later.');
+      } else if (err.response) {
+        setError(err.response.data.message || 'An unknown error occurred.');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setLoader(false);
     }
@@ -139,7 +154,13 @@ const LoginPage = () => {
               <div className="mb-3 w-full">
                 <a href="/forgot-password" className="text-xs subhead font-normal text-blue-700">Forgot password?</a>
               </div>
-
+              {error && 
+                <div className="mb-2 w-full">
+                  <p className="subhead text-xs text-red-500 flex items-center">
+                      <AiFillExclamationCircle  className="mr-2"/>{error}
+                  </p>
+                </div>
+              }
               <div className="text-end w-full">
                 <button type="submit" className="subhead py-2 px-4 bg-blue-700 text-white rounded-full">Login</button>
               </div>
