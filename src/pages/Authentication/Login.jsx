@@ -4,7 +4,8 @@ import { loginUser } from "../../routes/Auth/authService";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { BsPiggyBank } from "react-icons/bs";
+// import { BsPiggyBank } from "react-icons/bs";
+
 
 const LoginPage = () => {
   // For clearing token on page load
