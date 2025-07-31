@@ -13,7 +13,7 @@ import ChangePassword from './pages/Authentication/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
