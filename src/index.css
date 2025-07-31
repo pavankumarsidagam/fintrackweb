@@ -67,6 +67,11 @@
     font-style: normal;
 }
 
+.labelClass {}
+
+
+.inputClass{}
+
 .inputext{
     font-family: "Roboto", serif;
     font-weight: 300;

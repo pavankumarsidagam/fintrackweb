@@ -154,7 +154,7 @@ const Transactions = () => {
                             <select name="username"
                                 value={form.username}
                                 onChange={handleChange} 
-                                class="col-start-1 row-start-1 border w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300">
+                                class="col-start-1 row-start-1 border w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500">
                                 <option value="">Select User</option>
                                 {familyUsers.map((user) => (
                                   <option key={user} value={user}>
@@ -176,7 +176,7 @@ const Transactions = () => {
                             <select name="type"
                                 value={form.type}
                                 onChange={handleChange}
-                                class="col-start-1 row-start-1 border w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300">
+                                class="col-start-1 row-start-1 border w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500">
                                 <option value="expense">Expense</option>
                                 <option value="income">Income</option>
                             </select>
@@ -195,7 +195,7 @@ const Transactions = () => {
                                   name="date"
                                   value={form.date}
                                   onChange={handleChange} 
-                                  class="block w-full rounded-md border bg-white py-1.5 px-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300 sm:text-sm sm:leading-6" />
+                                  class="block w-full rounded-md border bg-white py-1.5 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
 
@@ -230,7 +230,7 @@ const Transactions = () => {
                                       name={`amount-${cat.name}`}
                                       value={categoryAmounts[cat.name] || "0"}
                                       onChange={(e) => handlecategoryChange(e, cat.name)}
-                                      className="w-full p-2 border rounded-xl"
+                                      className="w-full p-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
                                       required
                                     />
                                   </p>
@@ -252,7 +252,7 @@ const Transactions = () => {
                             <input type="number"
                                   name="amount"
                                   value={Object.values(categoryAmounts).reduce((acc, val) => acc + Number(val), 0)} required
-                                  class="block w-full rounded-md border bg-white py-1.5 px-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300 sm:text-sm sm:leading-6" />
+                                  class="block w-full rounded-md border bg-white py-1.5 px-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 sm:text-sm sm:leading-6" />
                         </div>
                       </div>
 
@@ -263,7 +263,7 @@ const Transactions = () => {
                             <input type="file"
                                     name="file"
                                     onChange={handleChange}
-                                  class="block w-full rounded-md border bg-white py-1.5 px-3 text-gray-900 outline-1 -outline-offset-1 outline-gray-300 sm:text-sm sm:leading-6" />
+                                  class="block w-full rounded-md border bg-white py-1.5 px-3 text-gray-900 focus:ring-2 focus:outline-none focus:ring-teal-500 sm:text-sm sm:leading-6" />
                         </div>
                       </div>
                     </div>
@@ -276,13 +276,13 @@ const Transactions = () => {
                         value={form.description}
                         onChange={handleChange}
                         rows="3"
-                        className="w-full p-2 border rounded-md"
+                        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                         placeholder="Optional notes..."
                       />
                     </div>
                   
 
-                  <div className="px-2 text-center"> 
+                  <div className="text-center"> 
                     <button
                       type="submit"
                       className="subhead bg-teal-600 text-white py-2 px-4 rounded-xl hover:bg-teal-700 transition"
