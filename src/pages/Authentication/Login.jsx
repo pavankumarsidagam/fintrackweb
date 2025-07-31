@@ -104,10 +104,10 @@ const LoginPage = () => {
 
         <div className="flex-1 flex flex-col">
 
-            <svg xmlns="https://www.w3.org/2000/svg" className="mb-3"  width="48" height="48" viewBox="0 0 50 48" aria-hidden="true" jsname="jjf7Ff">
+            {/* <svg xmlns="https://www.w3.org/2000/svg" className="mb-3"  width="48" height="48" viewBox="0 0 50 48" aria-hidden="true" jsname="jjf7Ff">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.528 4.65-8.93 3.804-1.942-.482-3.33-1.882-4.865-3.431C34.736 2.92 31.841 0 25.517 0zM12.758 15.218C5.954 15.218 1.701 18.6 0 25.364c2.552-3.382 5.529-4.65 8.93-3.805 1.942.482 3.33 1.882 4.865 3.432 2.502 2.524 5.397 5.445 11.722 5.445 6.804 0 11.057-3.381 12.758-10.145-2.552 3.382-5.529 4.65-8.931 3.805-1.941-.483-3.329-1.883-4.864-3.432-2.502-2.524-5.398-5.446-11.722-5.446z" fill="#38bdf8"></path>
-            </svg>
-            {/* <BsPiggyBank className="text-2xl text-teal-700" /> */}
+            </svg> */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="mb-3"  width="48" height="48" viewBox="0 -960 960 960" fill="#115e59"><path d="M320-414v-306h120v306l-60-56-60 56Zm200 60v-526h120v406L520-354ZM120-216v-344h120v224L120-216Zm0 98 258-258 142 122 224-224h-64v-80h200v200h-80v-64L524-146 382-268 232-118H120Z"/></svg>
 
           <h2 className="head text-2xl text-gray-900">Sign in</h2>
           <h4 className="subhead text-sm text-gray-800">Login into your account</h4>
