@@ -5,6 +5,8 @@ import apiRoutes from "../../routes/Menus/apiRoutes";
 import axiosInstance from "../../api/axiosInstance";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "../Authentication/Loader";
+
 
 const iconMap = {
   Groceries: FaShoppingCart,
@@ -20,6 +22,7 @@ const Transactions = () => {
   const [type, setType] = useState("expense");
   const [categories, setCategories] = useState([]);
   const [categoryAmounts, setCategoryAmounts] = useState({});
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -40,7 +43,7 @@ const Transactions = () => {
 
   const [form, setForm] = useState({
     username: "",
-    type: "",
+    type: "expense",
     date: "",
     description: "",
     file: null,
@@ -100,6 +103,8 @@ const Transactions = () => {
       return;
     }
 
+    setLoader(true);
+
     const formData = new FormData();
     formData.append("username", form.username);
     formData.append("type", form.type);
@@ -110,7 +115,7 @@ const Transactions = () => {
     
     try {
       const response = await axiosInstance.post(apiRoutes.addTransaction, formData);
-      console.log(response);
+      // console.log(response);
       if (response.status === 201) {
         toast.success("Transaction added successfully!");
 
@@ -134,12 +139,15 @@ const Transactions = () => {
         toast.error("Something went wrong while adding the transaction.");
       }
       console.error("Error submitting transaction:", error);
+    } finally {
+      setLoader(false);
     }
 
   };
 
   return (
     <MainLayout>
+      {loader && <Loader />}
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12">
             <div className="card bg-white border border-gray-200 p-6 rounded-3xl shadow-xl h-full">

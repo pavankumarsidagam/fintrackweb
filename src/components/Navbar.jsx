@@ -71,7 +71,7 @@ const Navbar = () => {
       <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 
         w-[95%] max-w-7xl xl:max-w-screen-2xl 2xl:max-w-[1600px]
         bg-gradient-to-r from-teal-600 via-teal-800 to-black 
-        text-white rounded-2xl shadow-xl 
+        text-white rounded-2xl shadow-lg 
         px-6 py-4 
         backdrop-blur-md bg-opacity-80 
         flex justify-between items-center 
