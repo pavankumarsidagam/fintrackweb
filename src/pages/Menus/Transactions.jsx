@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import { FaShoppingCart, FaBolt, FaMoneyBillWave, FaHome, FaPlane, FaQuestion } from "react-icons/fa";
 import apiRoutes from "../../routes/Menus/apiRoutes";
@@ -18,11 +18,28 @@ const iconMap = {
 
 
 const Transactions = () => {
-  const familyUsers = ["John", "Emma", "Sophia", "Michael"]; 
+  const [familyUsers, setFamilyUsers] = useState([]);
   const [type, setType] = useState("expense");
   const [categories, setCategories] = useState([]);
   const [categoryAmounts, setCategoryAmounts] = useState({});
   const [loader, setLoader] = useState(false);
+  
+  const fetchFamilyUsers = async () => {
+    try {
+      setLoader(true);
+      const res = await axiosInstance.get(apiRoutes.getUsers);
+      setFamilyUsers(res.data.members); 
+    } catch (err) {
+      toast.error("Failed to load family members.");
+      console.error(err);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFamilyUsers();
+  }, []); 
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -165,8 +182,8 @@ const Transactions = () => {
                                 class="col-start-1 row-start-1 border w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500">
                                 <option value="">Select User</option>
                                 {familyUsers.map((user) => (
-                                  <option key={user} value={user}>
-                                    {user}
+                                  <option key={user.id} value={user.id}>
+                                    {user.name} ({user.relation})
                                   </option>
                                 ))}
                             </select>
